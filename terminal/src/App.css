@@ -1,0 +1,18 @@
+@import "https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-black text-white;
+  font-family: "Fira Code", monospace;
+}
+
+#terminal {
+  @apply h-screen w-screen bg-black text-gray-200 rounded-lg shadow-lg p-4 border border-gray-800;
+}
+
+.terminal-focused {
+  @apply ring-2 ring-blue-500;
+}
