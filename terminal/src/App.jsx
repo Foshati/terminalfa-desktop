@@ -13,13 +13,16 @@ function App() {
   useEffect(() => {
     const initTerminal = async () => {
       const term = new Terminal({
-        fontFamily: "Fira Code",
+        fontFamily: "MesloLGS NF", // Set MesloLGS NF as the default font
+        cursorStyle: "bar", // Make the cursor narrow (bar)
+        cursorBlink: true, // Enable cursor blinking
         theme: {
           background: "black",
-          foreground: "#4A8F72", // Terminal text color
-          cursor: "#4A8F72",
-          selectionBackground: "rgba(74, 143, 114, 0.3)", // Light green selection
+          foreground: "#DCDCDD",
+          cursor: "#ffaa08",
+          selectionBackground: "rgba(74, 143, 114, 0.3)",
         },
+        allowTransparency: true,
       });
 
       const fitAddon = new FitAddon();
@@ -33,7 +36,6 @@ function App() {
       term.onData(writeToPty);
       window.addEventListener("resize", fitTerminal);
       fitTerminal();
-
       readFromPty();
     };
 
@@ -74,7 +76,6 @@ function App() {
   const initShell = async () => {
     try {
       await invoke("async_create_shell");
-      // Display "bash" upon initialization
       await writeToPty("bash\n");
     } catch (error) {
       console.error("Error creating shell:", error);
@@ -83,11 +84,9 @@ function App() {
 
   const readFromPty = async () => {
     const data = await invoke("async_read_from_pty");
-
     if (data) {
       await writeToTerminal(data);
     }
-
     window.requestAnimationFrame(readFromPty);
   };
 
